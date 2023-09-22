@@ -1,4 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Hello</h1>
+  <div class="mt-24 mb-6 text-center">
+    <h1 class="text-4xl font-bold uppercase">Welcome to Forsien</h1>
+  </div>
+  <div class="mb-24 flex justify-center" x-data="{searchQuery: ''}">
+    <form method="get"
+          hx-get="{% url 'search' %}"
+          hx-target="#search-results"
+          hx-target-5x="#server-error"
+          @submit.debounce.100ms="$el.reset()">
+      {{ form }}
+    </form>
+  </div>
+  <div id="server-error"></div>
+  <div id="search-results"
+       hx-swap="outerHTML"
+       class="flex justify-center w-full"></div>
 {% endblock content %}
